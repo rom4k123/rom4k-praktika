@@ -1,0 +1,52 @@
+import java.util.*;
+
+public class Main {
+
+    static class Category {
+        int priority;
+        int userCount;
+        int botCount;
+
+        Category(int priority, int userCount, int botCount) {
+            this.priority = priority;
+            this.userCount = userCount;
+            this.botCount = botCount;
+        }
+    }
+
+    public static void main(String[] args) {
+
+        // Аналог PHP массива $data
+        Map<String, Category> data = new HashMap<>();
+
+        data.put("one", new Category(3, 345, 9392));
+        data.put("two", new Category(1, 123222, 99));
+        data.put("three", new Category(2, 23, 1));
+
+        int maxBot = Integer.MIN_VALUE;
+        int minBot = Integer.MAX_VALUE;
+
+        List<Category> list = new ArrayList<>();
+
+        for (Category c : data.values()) {
+            maxBot = Math.max(maxBot, c.botCount);
+            minBot = Math.min(minBot, c.botCount);
+            list.add(c);
+        }
+
+        System.out.println("Max bot_count: " + maxBot);
+        System.out.println("Min bot_count: " + minBot);
+
+        // сортировка по priority ASC
+        list.sort(Comparator.comparingInt(c -> c.priority));
+
+        System.out.println("\nSorted by priority (ASC):");
+        for (Category c : list) {
+            System.out.println(
+                "priority=" + c.priority +
+                ", user_count=" + c.userCount +
+                ", bot_count=" + c.botCount
+            );
+        }
+    }
+}
